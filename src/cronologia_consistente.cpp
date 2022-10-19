@@ -27,13 +27,15 @@ Cronologia cronologia_consistente(nat n, ListaDatos tipo1, ListaDatos tipo2)
   // incluimos las aristas (bi, dj ) y (bj , di). 
   //Esto completa la construcción de G.
 
-  Grafo G = crear_grafo(n, true);
+  Grafo G = crear_grafo(n, true);   //podria generar_grafo
+  //preguntar si es orden topologico, si es hacer todo, sino f 
   while ((!es_vacia_lista_datos(tipo1))|| (!es_vacia_lista_datos(tipo2))){
     if (!es_vacia_lista_datos(tipo1)){
       dato actualt = primer_dato(tipo1);
       agregar_vertice(id1(actualt), G);
       agregar_vertice(id2(actualt), G);
       agregar_arista(id1(actualt), id2(actualt), G);  //agrego solo en el sentido del que muere antes
+    remover_dato(actualt, tipo1);  
     }
     if (!es_vacia_lista_datos(tipo2)){
       dato recien = primer_dato(tipo2);
@@ -41,16 +43,15 @@ Cronologia cronologia_consistente(nat n, ListaDatos tipo1, ListaDatos tipo2)
       agregar_vertice(id2(recien), G);
       agregar_arista(id1(recien), id2(recien), G);
       agregar_arista(id2(recien), id1(recien), G);
-    }             
-    remover_dato(actualt, tipo1);  
     remover_dato(recien, tipo2);
+    }             
   }
 
   nat cont = 0;
   //recorro los elementos del grafo para saber cuales no tienen incidencia
   Lista sinIncidentes = crear_lista();
   while (cont <= n){
-    if (in_grado(cont, G) == 0) insertar_al_inicio(cont, sinIncidentes);
+    if (in_grado(cont, G) == 0) insertar_al_final(cont, sinIncidentes);
     cont++;
   }
 
@@ -60,16 +61,41 @@ Cronologia cronologia_consistente(nat n, ListaDatos tipo1, ListaDatos tipo2)
   //w apunta a u (para eliminar el v)
 
   Lista ordenado = crear_lista();
+  nat cont = 0;
   while (!es_vacia_lista(sinIncidentes)){
     comienzo(ordenado);
     comienzo(sinIncidentes);  //??
     nat elem = primero(sinIncidentes);
     insertar_al_final(elem, ordenado);
+    cont++;
     remover_al_inicio(sinIncidentes);
     //FALTA eliminar a elem de G
     //los que queden en la lista de incidentes tengo que agregarlos a sinIncidentes
-  }
 
+        //elimino a v de G
+    Lista eliminarAristas = adyacentes(elem, G);
+    comienzo(eliminarAristas);
+    while(!es_vacia_lista(eliminarAristas)){
+      //como es el unico que apunta, no tengo que verificar para atras
+      if (in_grado(actual(eliminarAristas), G) == 1){
+        // lo agrego a sinInicidentes
+        insertar_al_final(actual(eliminarAristas), sinIncidentes);
+      }
+      else {
+        //borra 1 vertice de la cantidad de entrantes
+        Lista incidentesV = incidentes(actual(eliminarAristas), G);
+        
+
+      }
+      siguiente(eliminarAristas);
+      remover_al_inicio(eliminarAristas);
+    } 
+  }
+  if (cont == n)
+    imprimir_lista(ordenado);
+  else {
+    
+  }
 
 
   if(existe_cr_consistente) { // si existe, retornarla en cr

@@ -166,6 +166,7 @@ void findAllTopologicalOrderings(Graph &graph, auto &path, auto &discovered, int
         // proceder solo si el grado de entrada del nodo actual es 0 y
         // el nodo actual aún no se procesa
         if (graph.indegree[v] == 0 && !discovered[v])
+        (in_grado(v, graph))
         {
             // para cada vértice adyacente `u` de `v`, reduce el grado de entrada de `u` en 1
             for (int u: graph.adjList[v]) {

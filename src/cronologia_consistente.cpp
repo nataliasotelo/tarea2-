@@ -39,7 +39,7 @@ Cronologia cronologia_consistente(nat n, ListaDatos tipo1, ListaDatos tipo2)
 
 
     ListaDatos rect1 = tipo1;
-    nat indegred[n];
+    nat * indegred[n];
     for (int i = 0; i < n; i++)
         indegred[i] = 0;
     //crear grafo -> solo con tipo1
@@ -63,7 +63,10 @@ Cronologia cronologia_consistente(nat n, ListaDatos tipo1, ListaDatos tipo2)
         rect2 = resto_datos(rect2);
     }
     //Fin estructuras
-    
+    Lista ordenado = crear_lista();
+    bool* discovered[n];
+     //inicializo discovered
+    findAllTopologicalOrderings(G, ordenado, discovered n, indegred); 
     
 
 
@@ -89,7 +92,7 @@ void findAllTopologicalOrderings(Grafo &G, Lista &orden, bool* &discovered, int 
                 indegred[v]--;
             }
 
-            
+
 
             // incluir el nodo actual en la ruta y marcarlo como descubierto
 

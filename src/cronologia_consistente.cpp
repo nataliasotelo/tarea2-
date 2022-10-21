@@ -16,15 +16,16 @@ Cronologia cronologia_consistente(nat n, ListaDatos tipo1, ListaDatos tipo2)
     Cronologia cr = new evento[2*n]; 
 
     //Crear estructuras
+    nat cant1 = cantidad(tipo1);
+    nat cant2 = cantidad(tipo2); 
     Grafo G = crear_grafo(n, true);
-    for (nat i = 0; i<= n; i++){
-        agregar_vertice(i, G);
+    for (nat i = 0; i< cant1; i++){
         agregar_vertice(i, G);
     }
+    for (nat i = 0; i < cant2; i++)
+    agregar_vertice(i, G);
     ListaDatos rect1 = tipo1;
     while (!es_vacia_lista_datos(rect1)){
-        agregar_vertice(i, G);
-        agregar_vertice(i, G);
         agregar_arista(id1(primer_dato(rect1)), id2(primer_dato(rect1)), G);
         rect1 = resto_datos(rect1);
     }
@@ -36,32 +37,33 @@ Cronologia cronologia_consistente(nat n, ListaDatos tipo1, ListaDatos tipo2)
         rect2 = resto_datos(rect2);
     }
 
+    //suppongamos finalizadas estructuras
 
 
-    ListaDatos rect1 = tipo1;
-    nat * indegred[n];
-    for (int i = 0; i < n; i++)
-        indegred[i] = 0;
-    //crear grafo -> solo con tipo1
-    Grafo G = crear_grafo(n, true); 
-    while(!es_vacia_lista_datos(rect1)){
-        dato actualt1 = primer_dato(rect1);
-        if (!existe_vertice(id1(actualt1), G)) agregar_vertice(id1(actualt1), G);
-        if (!existe_vertice(id2(actualt1), G)) agregar_vertice(id2(actualt1), G);
-        agregar_arista(id1(actualt1), id2(actualt1), G);
-        indegred[id2(actualt1)] ++;
-        rect1 = resto_datos(rect1);
-    }
-    //grafo sin ser dirigido para hacer los de tipeo2 -> me sirve para poder comparar todo bien 
-    Grafo Gnodir = crear_grafo(n, false);
-    ListaDatos rect2 = tipo2;
-    while(!es_vacia_lista_datos(rect2)){
-        dato actualt2 = primer_dato(rect2);
-        if (!existe_vertice(id1(actualt2), Gnodir)) agregar_vertice(id1(actualt2), Gnodir);
-        if (!existe_vertice(id2(actualt2), Gnodir)) agregar_vertice(id2(actualt2), Gnodir);
-        agregar_arista(id1(actualt2), id2(actualt2), Gnodir);
-        rect2 = resto_datos(rect2);
-    }
+    // ListaDatos rect1 = tipo1;
+    // nat * indegred[n];
+    // for (int i = 0; i < n; i++)
+    //     indegred[i] = 0;
+    // //crear grafo -> solo con tipo1
+    // Grafo G = crear_grafo(n, true); 
+    // while(!es_vacia_lista_datos(rect1)){
+    //     dato actualt1 = primer_dato(rect1);
+    //     if (!existe_vertice(id1(actualt1), G)) agregar_vertice(id1(actualt1), G);
+    //     if (!existe_vertice(id2(actualt1), G)) agregar_vertice(id2(actualt1), G);
+    //     agregar_arista(id1(actualt1), id2(actualt1), G);
+    //     indegred[id2(actualt1)] ++;
+    //     rect1 = resto_datos(rect1);
+    // }
+    // //grafo sin ser dirigido para hacer los de tipeo2 -> me sirve para poder comparar todo bien 
+    // Grafo Gnodir = crear_grafo(n, false);
+    // ListaDatos rect2 = tipo2;
+    // while(!es_vacia_lista_datos(rect2)){
+    //     dato actualt2 = primer_dato(rect2);
+    //     if (!existe_vertice(id1(actualt2), Gnodir)) agregar_vertice(id1(actualt2), Gnodir);
+    //     if (!existe_vertice(id2(actualt2), Gnodir)) agregar_vertice(id2(actualt2), Gnodir);
+    //     agregar_arista(id1(actualt2), id2(actualt2), Gnodir);
+    //     rect2 = resto_datos(rect2);
+    // }
     //Fin estructuras
     Lista ordenado = crear_lista();
     bool* discovered[n];
@@ -70,8 +72,9 @@ Cronologia cronologia_consistente(nat n, ListaDatos tipo1, ListaDatos tipo2)
     
 
 
-    if(existe_cr_consistente) { // si existe, retornarla en cr
-        return cr;
+    if(cantidad_elementos(ordenado) == n) { // si existe, retornarla en cr
+        // return cr;
+        imprimir_lista(ordenado);
     } else {// si no existe, liberar la memoria asociada a cr y retornar NULL   
         delete[] cr;
         return NULL;

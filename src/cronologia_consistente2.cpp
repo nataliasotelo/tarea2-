@@ -205,7 +205,7 @@ void printAllTopologicalOrders(Graph &graph)
     int n = graph.adjList.size();
  
     // crea una array auxiliar para realizar un seguimiento de si se descubre un vértice
-    vector<bool> discovered(n);
+    vector<bool> discovered(n); 
  
     // lista para almacenar el orden topológico
     list<int> path;
@@ -242,3 +242,61 @@ void printAllTopologicalOrders(Graph &graph)
         return NULL;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   // ListaDatos rect1 = tipo1;
+    // nat * indegred[n];
+    // for (int i = 0; i < n; i++)
+    //     indegred[i] = 0;
+    // //crear grafo -> solo con tipo1
+    // Grafo G = crear_grafo(n, true); 
+    // while(!es_vacia_lista_datos(rect1)){
+    //     dato actualt1 = primer_dato(rect1);
+    //     if (!existe_vertice(id1(actualt1), G)) agregar_vertice(id1(actualt1), G);
+    //     if (!existe_vertice(id2(actualt1), G)) agregar_vertice(id2(actualt1), G);
+    //     agregar_arista(id1(actualt1), id2(actualt1), G);
+    //     indegred[id2(actualt1)] ++;
+    //     rect1 = resto_datos(rect1);
+    // }
+    // //grafo sin ser dirigido para hacer los de tipeo2 -> me sirve para poder comparar todo bien 
+    // Grafo Gnodir = crear_grafo(n, false);
+    // ListaDatos rect2 = tipo2;
+    // while(!es_vacia_lista_datos(rect2)){
+    //     dato actualt2 = primer_dato(rect2);
+    //     if (!existe_vertice(id1(actualt2), Gnodir)) agregar_vertice(id1(actualt2), Gnodir);
+    //     if (!existe_vertice(id2(actualt2), Gnodir)) agregar_vertice(id2(actualt2), Gnodir);
+    //     agregar_arista(id1(actualt2), id2(actualt2), Gnodir);
+    //     rect2 = resto_datos(rect2);
+    // }
+    //Fin estructuras

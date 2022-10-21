@@ -12,6 +12,7 @@
 Cronologia cronologia_consistente(nat n, ListaDatos tipo1, ListaDatos tipo2)
 {
     bool existe_cr_consistente = false; 
+
     Cronologia cr = new evento[2*n]; 
 
     //Crear estructuras
